@@ -136,6 +136,7 @@ sed -e 's~_NUGET_VERSION_~'"$NUGET_VERSION"'~g' \
     -e 's~_BUILD_DIRECTORY_NAME_~'"${BUILD_DIRECTORY_NAME//\//\\\\}"'~g' \
     -e 's~_BUILD_PROJECT_NAME_~'"$BUILD_PROJECT_NAME"'~g' \
     -e 's~_SOLUTION_DIRECTORY_~'"${SOLUTION_DIRECTORY_RELATIVE//\//\\\\}"'~g' \
+    -e 's~$~\r~g' \
     <<<"$(curl -Lsf $BOOTSTRAPPING_URL/build.$TARGET_PLATFORM.ps1)" \
     > build.ps1
 
@@ -155,11 +156,13 @@ sed -e 's~_TARGET_FRAMEWORK_~'"$TARGET_FRAMEWORK"'~g' \
     -e 's~_BUILD_PROJECT_NAME_~'"$BUILD_PROJECT_NAME"'~g' \
     -e 's~_SOLUTION_DIRECTORY_~'"${SOLUTION_DIRECTORY_RELATIVE//\//\\}"'~g' \
     -e 's~_NUKE_VERSION_~'"$NUKE_VERSION"'~g' \
+    -e 's~$~\r~g' \
     <<<"$(curl -Lsf $BOOTSTRAPPING_URL/.build.$PROJECT_FORMAT.csproj)" \
     > "$BUILD_PROJECT_FILE"
 
 if [ $PROJECT_FORMAT_SELECTION == 0 ]; then
     sed -e 's~_NUKE_VERSION_~'"$NUKE_VERSION"'~g' \
+        -e 's~$~\r~g' \
         <<<"$(curl -Lsf $BOOTSTRAPPING_URL/.build.legacy.packages.config)" \
         > "$BUILD_DIRECTORY/packages.config"
 fi
