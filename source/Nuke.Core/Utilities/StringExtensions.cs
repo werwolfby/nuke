@@ -126,5 +126,10 @@ namespace Nuke.Core.Utilities
         {
             return values.Join(Environment.NewLine);
         }
+
+        public static string JoinSpace (this IEnumerable<string> values)
+        {
+            return values.Join(" ");
+        }
     }
 }

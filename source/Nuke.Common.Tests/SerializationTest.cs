@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
@@ -15,27 +16,17 @@ namespace Nuke.Common.Tests
     {
         [Theory]
         [MemberData(nameof(Serializers))]
-        public void Test(string name, Func<Data, Data> serializationChain)
+        public void Test (string name, Func<Data, Data> serializationChain)
         {
             var obj = new Data
                       {
                           String = "mytext",
                           Number = 5,
                           Boolean = true,
-                          Nested = new Data
-                                   {
-                                       Boolean = false
-                                   }
+                          Nested = new Data { Boolean = false }
                       };
 
-            var obj2 = serializationChain(obj);
-
-            obj2.String.Should().Be(obj.String);
-            obj2.Number.Should().Be(obj.Number);
-            obj2.Boolean.Should().Be(obj.Boolean);
-            obj2.Nested.Should().NotBeNull();
-            obj2.Nested.Boolean.Should().Be(obj.Nested.Boolean);
-            obj2.Nested.String.Should().Be(obj.Nested.String);
+            serializationChain(obj).ShouldBeEquivalentTo(obj);
         }
 
         public class Data
@@ -55,7 +46,7 @@ namespace Nuke.Common.Tests
                 object[] GetSerialization (string name, Func<Data, Data> serialization) => new object[] { name, serialization };
 
                 yield return GetSerialization("Json", x => JsonDeserialize<Data>(JsonSerialize(x)));
-                yield return GetSerialization ("Yaml", x => YamlDeserialize<Data> (YamlSerialize (x)));
+                yield return GetSerialization("Yaml", x => YamlDeserialize<Data>(YamlSerialize(x)));
                 //yield return GetSerialization(x => XmlSerialize(x), x => XmlDeserialize<Data>(x));
             }
         }
