@@ -1,3 +1,10 @@
+==================================================
+Tool: TestCloud
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/TestCloud.json
+Reference Url: https://developer.xamarin.com/guides/testcloud/uitest/working-with/submitting-tests-at-command-line
+Reference Xpath: //div[@class='doc-content']/table
+==================================================
+
 
     
     

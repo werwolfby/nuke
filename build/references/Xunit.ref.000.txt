@@ -1,3 +1,10 @@
+==================================================
+Tool: Xunit
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Xunit.json
+Reference Url: https://raw.githubusercontent.com/xunit/xunit/master/src/xunit.console/ConsoleRunner.cs
+Reference Xpath: <null>
+==================================================
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

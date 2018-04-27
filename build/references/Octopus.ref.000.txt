@@ -1,3 +1,10 @@
+==================================================
+Tool: Octopus
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Octopus.json
+Reference Url: https://octopus.com/docs/api-and-integration/octo.exe-command-line/creating-releases
+Reference Xpath: //article[@id='doc-content']/pre[2]
+==================================================
+
 Release creation: 
 
       --project=VALUE        Name of the project

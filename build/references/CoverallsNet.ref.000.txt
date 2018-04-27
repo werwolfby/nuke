@@ -1,3 +1,10 @@
+==================================================
+Tool: CoverallsNet
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/CoverallsNet.json
+Reference Url: https://raw.githubusercontent.com/csMACnz/coveralls.net/master/src/csmacnz.Coveralls/T4DocoptNet.cs
+Reference Xpath: <null>
+==================================================
+
 using System.Collections.Generic;
 using DocoptNet;
 

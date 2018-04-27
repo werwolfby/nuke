@@ -1,3 +1,10 @@
+==================================================
+Tool: WebConfigTransformRunner
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/WebConfigTransformRunner.json
+Reference Url: https://raw.githubusercontent.com/erichexter/WebConfigTransformRunner/master/Readme.md
+Reference Xpath: <null>
+==================================================
+
 # Web Config Transformation Runner
 
 This is a commandline tool to run an ASP.Net web.config tranformation.

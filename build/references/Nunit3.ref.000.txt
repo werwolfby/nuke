@@ -1,3 +1,10 @@
+==================================================
+Tool: Nunit
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Nunit3.json
+Reference Url: https://github.com/nunit/docs/wiki/Console-Command-Line
+Reference Xpath: //div[@id='wiki-body']
+==================================================
+
 
         
           The console interface runner is invoked by a command in the form

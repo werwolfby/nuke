@@ -1,3 +1,10 @@
+==================================================
+Tool: Paket
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Paket.json
+Reference Url: https://fsprojects.github.io/Paket/paket-update.html
+Reference Xpath: //div[@id='main']
+==================================================
+
 
           
 paket update

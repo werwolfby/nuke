@@ -1,3 +1,9 @@
+==================================================
+Tool: NuGet
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/NuGet.json
+Reference Url: https://raw.githubusercontent.com/NuGet/docs.microsoft.com-nuget/live/docs/tools/cli-ref-restore.md
+Reference Xpath: <null>
+==================================================
 
 Applies to: package consumption &bullet; Supported versions: 2.7+
 Downloads and installs any packages missing from the packages folder. When used with NuGet 4.0+ and the PackageReference format, generates a &lt;project&gt;.nuget.props file, if needed, in the obj folder. (The file can be omitted from source control.)

@@ -1,3 +1,10 @@
+==================================================
+Tool: MSBuild
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/MSBuild.json
+Reference Url: https://raw.githubusercontent.com/MicrosoftDocs/visualstudio-docs/master/docs/msbuild/msbuild-command-line-reference.md
+Reference Xpath: <null>
+==================================================
+
 ---
 title: "MSBuild Command-Line Reference | Microsoft Docs"
 ms.custom: ""

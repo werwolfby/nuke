@@ -1,3 +1,10 @@
+==================================================
+Tool: GitVersion
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/GitVersion.json
+Reference Url: https://raw.githubusercontent.com/GitTools/GitVersion/master/docs/more-info/variables.md
+Reference Xpath: <null>
+==================================================
+
 # Variables
 Variables are quite useful if you need different formats of the version number. Running `GitVersion.exe` in your repo will show you what is available.
 For the `release/3.0.0` branch of GitVersion it shows:

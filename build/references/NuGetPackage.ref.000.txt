@@ -1,3 +1,10 @@
+==================================================
+Tool: NuGet
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/NuGetPackage.json
+Reference Url: https://raw.githubusercontent.com/NuGet/docs.microsoft.com-nuget/live/docs/reference/nuspec.md
+Reference Xpath: <null>
+==================================================
+
 ---
 title: .nuspec File Reference for NuGet | Microsoft Docs
 author: kraigb

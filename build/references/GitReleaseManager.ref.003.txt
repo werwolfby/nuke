@@ -1,3 +1,10 @@
+==================================================
+Tool: GitReleaseManager
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/GitReleaseManager.json
+Reference Url: https://raw.githubusercontent.com/GitTools/GitReleaseManager/develop/Source/GitReleaseManager.Cli/Options/CloseSubOptions.cs
+Reference Xpath: <null>
+==================================================
+
 //-----------------------------------------------------------------------
 // <copyright file="CloseSubOptions.cs" company="GitTools Contributors">
 //     Copyright (c) 2015 - Present - GitTools Contributors

@@ -1,3 +1,10 @@
+==================================================
+Tool: Octopus
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Octopus.json
+Reference Url: https://octopus.com/docs/api-and-integration/octo.exe-command-line/pushing-packages
+Reference Xpath: //article[@id='doc-content']/pre[3]
+==================================================
+
 C:\&gt; Octo.exe help push
 
 Package pushing:

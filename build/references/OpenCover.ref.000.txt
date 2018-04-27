@@ -1,3 +1,10 @@
+==================================================
+Tool: OpenCover
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/OpenCover.json
+Reference Url: https://raw.githubusercontent.com/wiki/OpenCover/opencover/Usage.md
+Reference Xpath: <null>
+==================================================
+
 NOTE: When you install OpenCover, either by MSI, NuGet package or ZIP file, there is [supplied documentation](https://github.com/opencover/opencover/blob/master/main/OpenCover.Documentation/Usage.pdf) that is much richer than the wiki pages. 
 
 ## Console Application Usage

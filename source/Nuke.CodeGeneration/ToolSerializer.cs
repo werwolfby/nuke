@@ -12,18 +12,22 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Nuke.CodeGeneration.Model;
 using Nuke.Common;
+using Nuke.Common.Git;
 
 namespace Nuke.CodeGeneration
 {
     public static class ToolSerializer
     {
-        public static Tool Load(string file)
+        public static Tool Load(string file, [CanBeNull] GitRepository repository)
         {
             try
             {
+                repository = repository ?? ControlFlow.SuppressErrors(() => GitRepository.FromLocalDirectory(Path.GetDirectoryName(file)));
+                
                 var content = File.ReadAllText(file);
                 var tool = JsonConvert.DeserializeObject<Tool>(content);
                 tool.DefinitionFile = file;
+                tool.RepositoryUrl = repository.IsGitHubRepository() ? repository.GetGitHubDownloadUrl(file) : null;
                 return tool;
             }
             catch (Exception exception)

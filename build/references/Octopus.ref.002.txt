@@ -1,3 +1,10 @@
+==================================================
+Tool: Octopus
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Octopus.json
+Reference Url: https://octopus.com/docs/packaging-applications/nuget-packages/using-octo.exe
+Reference Xpath: //article[@id='doc-content']/pre[6]
+==================================================
+
 C:\&gt; Octo.exe help pack
 Octopus Deploy Command Line Tool, version 3.3.8+Branch.master.Sha.f8a34fc6097785d7d382ddfaa9a7f009f29bc5fb
 

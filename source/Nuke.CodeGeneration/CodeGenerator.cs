@@ -43,10 +43,10 @@ namespace Nuke.CodeGeneration
         {
             foreach (var specificationFile in specificationFiles)
             {
-                var tool = ToolSerializer.Load(specificationFile);
+                var tool = ToolSerializer.Load(specificationFile, repository);
                 // for formatting and ordering of properties
                 ToolSerializer.Save(tool);
-                ApplyRuntimeInformation(tool, repository);
+                ApplyRuntimeInformation(tool);
 
                 var generationDirectory = useNestedNamespaces ? Path.Combine(baseDirectory, tool.Name) : baseDirectory;
                 var generationFile = Path.Combine(generationDirectory, $"{Path.GetFileNameWithoutExtension(tool.DefinitionFile)}.Generated.cs");
@@ -70,10 +70,8 @@ namespace Nuke.CodeGeneration
         }
 
         // ReSharper disable once CyclomaticComplexity
-        private static void ApplyRuntimeInformation(Tool tool, GitRepository repository)
+        private static void ApplyRuntimeInformation(Tool tool)
         {
-            tool.RepositoryUrl = repository?.GetGitHubBrowseUrl(tool.DefinitionFile);
-
             foreach (var task in tool.Tasks)
             {
                 task.Tool = tool;

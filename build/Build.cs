@@ -189,8 +189,8 @@ class Build : NukeBuild
         .Executes(() =>
         {
             EnsureCleanDirectory(ReferencesDirectory);
-            
-            UpdateReferences(SpecificationsDirectory, ReferencesDirectory);
+
+            UpdateReferences(SpecificationsDirectory, ReferencesDirectory, GitRepository);
         });
     
     Target Generate => _ => _

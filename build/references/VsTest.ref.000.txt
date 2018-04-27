@@ -1,3 +1,10 @@
+==================================================
+Tool: VsTest
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/VsTest.json
+Reference Url: https://msdn.microsoft.com/en-us/library/jj155796.aspx
+Reference Xpath: //div[@class='content']
+==================================================
+
 
 
 

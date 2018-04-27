@@ -1,3 +1,10 @@
+==================================================
+Tool: GitLink
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/GitLink.json
+Reference Url: https://raw.githubusercontent.com/GitTools/GitLink/1520bf13cf35337a368aa0c960135c564e519fbf/src/GitLink/Program.cs
+Reference Xpath: <null>
+==================================================
+
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Program.cs" company="CatenaLogic">
 //   Copyright (c) 2014 - 2016 CatenaLogic. All rights reserved.

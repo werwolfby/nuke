@@ -1,3 +1,10 @@
+==================================================
+Tool: Npm
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/Npm.json
+Reference Url: https://docs.npmjs.com/cli/install
+Reference Xpath: //div[@id='page']
+==================================================
+
 
     npm-install
     Install a package
