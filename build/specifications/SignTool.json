@@ -21,45 +21,129 @@
             "name": "AutomaticSelection",
             "type": "bool",
             "format": "/a",
-            "help": "Select the best signing cert automatically. SignTool will find all valid certs that satisfy all specified conditions and select the one that is valid for the longest. If this option is not present, SignTool will expect to find only one valid signing cert."
+            "help": "Automatically selects the best signing certificate. Sign Tool will find all valid certificates that satisfy all specified conditions and select the one that is valid for the longest time. If this option is not present, Sign Tool expects to find only one valid signing certificate."
           },
           {
             "name": "AdditionalCertificate",
             "type": "string",
             "format": "/ac {value}",
-            "help": "Add an additional certificate to the signature block."
+            "help": "Adds an additional certificate from *file* to the signature block."
+          },
+          {
+            "name": "AppendSignature",
+            "type": "bool",
+            "format": "/as",
+            "help": "Appends this signature. If no primary signature is present, this signature is made the primary signature instead."
           },
           {
             "name": "CertificateTemplateName",
             "type": "string",
             "format": "/c {value}",
-            "help": "Specify the Certificate Template Name (Microsoft extension) of the signing cert."
+            "help": "Specifies the Certificate Template Name (a Microsoft extension) for the signing certificate."
           },
           {
-            "name": "File",
+            "name": "CspName",
+            "type": "string",
+            "format": "/csp {value}",
+            "help": "Specifies the cryptographic service provider (CSP) that contains the private key container."
+          },
+          {
+            "name": "Description",
+            "type": "string",
+            "format": "/d {value}",
+            "help": "Specifies a description of the signed content."
+          },
+          {
+            "name": "Url",
+            "type": "string",
+            "format": "/du {value}",
+            "help": "Specifies a Uniform Resource Locator (URL) for the expanded description of the signed content."
+          },
+          {
+            "name": "SignCertificationFile",
             "type": "string",
             "format": "/f {value}",
-            "help": "Specify the signing cert in a file. If this file is a PFX with a password, the password may be supplied with the <c>/p</c> option. If the file does not contain private keys, use the <c>/csp</c> and <c>/kc</c> options to specify the CSP and container name of the private key."
+            "help": "Specifies the signing certificate in a file. If the file is in Personal Information Exchange (PFX) format and protected by a password, use the <c>/p</c> option to specify the password. If the file does not contain private keys, use the <c>/csp</c> and <c>/kc</c> options to specify the CSP and private key container name."
           },
           {
-            "name": "Issuer",
+            "name": "FileDigestAlgorithm",
+            "type": "string",
+            "format": "/fd {value}",
+            "help": "Specifies the file digest algorithm to use for creating file signatures. The default is <c>SHA1</c>."
+          },
+          {
+            "name": "IssuerName",
             "type": "string",
             "format": "/i {value}",
-            "help": "Specify the Issuer of the signing cert, or a substring."
+            "help": "Specifies the name of the issuer of the signing certificate. This value can be a substring of the entire issuer name."
           },
           {
-            "name": "SigningSubjectName",
+            "name": "PrivateKeyContainerName",
+            "type": "string",
+            "format": "/kc {value}",
+            "help": "Specifies the private key container name."
+          },
+          {
+            "name": "SubjectName",
             "type": "string",
             "format": "/n {value}",
-            "help": "Specify the Subject Name of the signing cert, or a substring."
+            "help": "Specifies the name of the subject of the signing certificate. This value can be a substring of the entire subject name."
+          },
+          {
+            "name": "SuppressPageHashes",
+            "type": "bool",
+            "format": "/nph",
+            "help": "If supported, suppresses page hashes for executable files. The default is determined by the <c>SIGNTOOL_PAGE_HASHES</c> environment variable and by the <em>wintrust.dll</em> version. This option is ignored for non-PE files."
           },
           {
             "name": "Password",
             "type": "string",
             "format": "/p {value}",
             "secret": true,
-            "help": "Specify a password to use when opening the PFX file."
+            "help": "Specifies the password to use when opening a PFX file. (Use the <c>/f</c> option to specify a PFX file.)"
           },
+
+
+
+
+
+
+
+
+
+
+
+
+          {
+            "name": "ContentFileToPkcs7",
+            "type": "string",
+            "format": "/p7 {value}",
+            "help": "Specifies that for each specified content file a PKCS7 file is produced. The PKCS7 file will be named: <c>&lt;path&gt;\\&lt;file&gt;.p7</c>"
+          },
+          {
+            "name": "SignedContentIdentifier",
+            "type": "string",
+            "format": "/p7co {value}",
+            "help": "Specifies the <c>&lt;OID&gt;</c> that identifies the signed content."
+          },
+          {
+            "name": "SignedContentMethod",
+            "type": "SignToolContentMethod",
+            "format": "/p7ce {value}",
+            "help": "efined values:<ul><li><b>Embedded:</b> Embeds the signed content in the PKCS7.</li><li><b>DetachedSignedData:</b> Produces the signed data part of a detached PKCS7.</li></ul>The default is <c>Embedded</c>."
+          },
+          {
+            "name": "PageHashes",
+            "type": "bool",
+            "format": "/ph",
+            "help": "Generate page hashes for executable files if supported."
+          },
+          
+          
+          
+          
+          
+          
           {
             "name": "RootSubjectName",
             "type": "string",
@@ -86,12 +170,6 @@
             "help": "Specify the SHA1 thumbprint of the signing cert."
           },
           {
-            "name": "FileDigestAlgorithm",
-            "type": "string",
-            "format": "/fd {value}",
-            "help": "Specifies the file digest algorithm to use for creating file signatures. (Default is <c>SHA1</c>)"
-          },
-          {
             "name": "EnhancedKeyUsage",
             "type": "string",
             "format": "/u {value}",
@@ -102,36 +180,6 @@
             "type": "bool",
             "format": "/uw",
             "help": "Specify usage of <em>Windows System Component Verification</em> (1.3.6.1.4.1.311.10.3.6)."
-          },
-          {
-            "name": "Csp",
-            "type": "string",
-            "format": "/csp {value}",
-            "help": "Specify the CSP containing the Private Key Container."
-          },
-          {
-            "name": "KeyContainer",
-            "type": "string",
-            "format": "/kc {value}",
-            "help": "Specify the Key Container Name of the Private Key."
-          },
-          {
-            "name": "AppendSignature",
-            "type": "bool",
-            "format": "/as",
-            "help": "Append this signature. If no primary signature is present, this signature will be made the primary signature instead."
-          },
-          {
-            "name": "Description",
-            "type": "string",
-            "format": "/d {value}",
-            "help": "Provide a description of the signed content."
-          },
-          {
-            "name": "Url",
-            "type": "string",
-            "format": "/du {value}",
-            "help": "Provide a URL with more information about the signed content."
           },
           {
             "name": "TimestampServerUrl",
@@ -223,36 +271,6 @@
             "type": "string",
             "format": "dmdf {value}",
             "help": "When used with the <c>/dlib</c> option, passes the file's contents to the AuthenticodeDigestSign function without modification."
-          },
-          {
-            "name": "ContentFileToPkcs7",
-            "type": "string",
-            "format": "/p7 {value}",
-            "help": "Specifies that for each specified content file a PKCS7 file is produced. The PKCS7 file will be named: <c>&lt;path&gt;\\&lt;file&gt;.p7</c>"
-          },
-          {
-            "name": "SignedContentIdentifier",
-            "type": "string",
-            "format": "/p7co {value}",
-            "help": "Specifies the <c>&lt;OID&gt;</c> that identifies the signed content."
-          },
-          {
-            "name": "SignedContentMethod",
-            "type": "SignToolContentMethod",
-            "format": "/p7ce {value}",
-            "help": "efined values:<ul><li><b>Embedded:</b> Embeds the signed content in the PKCS7.</li><li><b>DetachedSignedData:</b> Produces the signed data part of a detached PKCS7.</li></ul>The default is <c>Embedded</c>."
-          },
-          {
-            "name": "PageHashes",
-            "type": "bool",
-            "format": "/ph",
-            "help": "Generate page hashes for executable files if supported."
-          },
-          {
-            "name": "SuppressPageHashes",
-            "type": "bool",
-            "format": "/nph",
-            "help": "Suppress page hashes for executable files if supported. The default is determined by the <c>SIGNTOOL_PAGE_HASHES</c> environment variable and by the <em>wintrust.dll</em> version."
           },
           {
             "name": "RelaxedMarkerCheck",

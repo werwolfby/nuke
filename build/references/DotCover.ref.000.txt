@@ -1,4 +1,11 @@
-Console Runner Commands            dotCover Console Runner provides the following commands:                        analyse - All-in-one task.                Performs coverage analysis, generates report and removes snapshots.                            cover - Perform coverage analysis of the specified application.                            delete - Delete all files related to the specified snapshots.                            help - Show console runner help.                            list - Obtain list of all files related to the specified snapshots.                            merge - Merge several coverage snapshots.                            report - Create a report by the specified snapshot.                            version - Write dotCover version info to the specified file.                            zip - Compress coverage snapshot.                    You can learn everything about each command right in the console by typing        help        followed by the command name. All commands (including help) have corresponding shortcuts.        For instance, to get information about the        analyse command, we can type:        dotCover.exe help analyse        or        dotCover h a                                It is possible to specify relative paths in the console runner parameters.                Relative paths defined in an xml configuration file are treated relative to the location                of this file.                Relative paths in command line parameters are treated relative                to the console runner working directory.                    analyse        
+==================================================
+Tool: DotCover
+File: https://raw.githubusercontent.com/nuke-build/nuke/execution/build/specifications/DotCover.json
+Reference Url: https://www.jetbrains.com/help/dotcover/dotCover__Console_Runner_Commands.html
+Reference Xpath: //article[@class='article']
+==================================================
+
+Console Runner Commands            dotCover Console Runner provides the following commands:                        analyze - All-in-one task.                Performs coverage analysis, generates report and removes snapshots.                            analyze-everything - All-in-one task.                Performs coverage analysis of all .NET processes that are started after dotCover.exe,                generates report and removes snapshots.                            analyze-service - All-in-one task.                Performs coverage analysis of the specified Windows service,                generates report and removes snapshots.                            cover - Perform coverage analysis of the specified application.                            cover-everything - All-in-one task.                Performs coverage analysis of all .NET processes that are started after dotCover.exe.                            cover-service - All-in-one task.                Performs coverage analysis of the specified Windows service.                            delete - Deletes all files related to the specified snapshots.                            help - Shows console runner help.                            list - Obtains the list of all files related to the specified snapshots.                            merge - Merges several coverage snapshots.                            report - Creates a report for the specified snapshot.                            version - Writes dotCover version info to the specified file.                            zip - Compresses coverage snapshot.                            send - Sends a command to the specified dotCover.exe instance.                    You can learn everything about each command right in the console by typing        help        followed by the command name. All commands (including help) have corresponding shortcuts.        For instance, to get information about the        analyse command, we can type:        dotCover.exe help analyse        or        dotCover h a                                It is possible to specify relative paths in the console runner parameters.                Relative paths defined in an xml configuration file are treated relative to the location                of this file.                Relative paths in command line parameters are treated relative                to the console runner working directory.                    analyze        
 analyse: All-in-one task. Performs coverage analysis, generates report and removes snapshots.
 usage: dotCover analyse [parameters]
 
@@ -16,9 +23,9 @@ Valid parameters:
   /Scope                       : (Optional) Allows including assemblies that were not loaded in the specified scope into coverage results.
                                  The parameter is a semicolon separated list of file path masks.
                                  Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
-  /Filters=ARG                 : (Optional) Specifies coverage filters using the following syntax: +:module=*;class=*;function=*;
+  /Filters=ARG                 : (Optional) Specifies coverage filters. Syntax: +:module=*;class=*;function=*;
                                  Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
-  /AttributeFilters=ARG        : (Optional) Specifies attribute filters using the following syntax: filter1;filter2;...
+  /AttributeFilters=ARG        : (Optional) Specifies attribute filters. Syntax: filter1;filter2;...
                                  Asterisk wildcard (*) is supported here
   /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
   /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
@@ -26,7 +33,7 @@ Valid parameters:
   /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
   /ReturnTargetExitCode        : (Optional) Returns the exit code of the target executable in case coverage analysis succeeded
   /ProcessFilters=ARG          : (Optional) Specifies process filters. Syntax: +:process1;-:process2
-  /HideAutoProperties          : (Optional) Remove auto-implemented properties from report
+  /HideAutoProperties          : (Optional) Removes auto-implemented properties from report
 
 
 Global parameters:
@@ -75,37 +82,110 @@ Configuration file format:
     &lt;/AttributeFilters&gt;
     --&gt;
   &lt;/AnalyseParams&gt;
+            analyze-everything        
+analyze-everything: All-in-one task. Performs coverage analysis of all .NET processes that are started after dotCover.exe,
+                    generates report and removes snapshots.
+usage: dotCover analyze-everything [parameters]
+
+Valid parameters:
+    /StartInstance=ARG           : (Required) Starts new dotCover.exe instance in the background and waits until it is initialized.
+                                    ARG is the instance ID. Use this ID to send commands to this dotCover.exe instance.
+                                    Not required if /Instance is specified
+    /Instance=ARG                : (Required) Assigns an instance ID to the current dotCover.exe instance. Use this ID to send commands to
+                                    this dotCover.exe instance. Not required if /StartInstance is specified
+    /CoverImmediately=ARG        : (Optional) [True|False] Specifies whether to start coverage analysis immediately after launch. True by default
+    /StartInstanceTimeout=ARG    : (Optional) Timeout in seconds for /StartInstance parameter. Default is 20
+    /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
+    /ReportType=ARG              : (Optional) [HTML|JSON|XML|DetailedXML|NDependXML]. A type of the report. XML by default
+    /Output=ARG                  : (Required) Resulting report file name
+    /Scope                       : (Optional) Allows including not loaded assemblies in the specified scope into coverage results.
+                                    The parameter is a semicolon separated list of file path masks.
+                                    Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
+    /Filters=ARG                 : (Optional) Specifies coverage filters. Syntax: +:module=*;class=*;function=*;
+                                    Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
+    /AttributeFilters=ARG        : (Optional) Specifies attribute filters. Syntax: filter1;filter2;...
+                                    Asterisk wildcard (*) is supported here
+    /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
+    /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
+                                    supported here. Values are separated with semicolon
+    /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
+    /ProcessFilters=ARG          : (Optional) Specifies process filters. Syntax: +:process1;-:process2;...
+                                    Asterisk wildcard (*) is supported here
+    /HideAutoProperties          : (Optional) Hides auto properties from report
+
+Global parameters:
+    /LogFile=ARG                 : (Optional) Enables logging and allows specifying a log file name
+
+It is possible to specify a part of the parameters or all of them in the configuration file.
+usage: dotCover analyze-everything &lt;configuration file name&gt; [parameters]
+
+Configuration file format is described in the autogenerated sample.
+usage: dotCover help analyze &lt;configuration file name&gt;
+            analyze-service        
+analyze-service: All-in-one task. Performs coverage analysis of the specified Windows service, generates report and removes snapshots.
+usage: dotCover analyze-service [parameters]
+
+Valid parameters:
+    /ServiceName=ARG             : (Required) Name of the service to analyze
+    /ServiceArguments=ARG        : (Optional) Service arguments
+    /StartDependentServices=ARG  : (Optional) [True|False] Specifies whether dependent services must be started. False by default
+    /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
+    /ReportType=ARG              : (Optional) [HTML|JSON|XML|DetailedXML|NDependXML]. A type of the report. XML by default
+    /Output=ARG                  : (Required) Resulting report file name
+    /AnalyzeServiceArguments=ARG : (Optional) [True|False] Specifies whether dotCover should analyze arguments string
+                                    and convert relative paths to absolute there. True by default
+    /Scope                       : (Optional) Allows including not loaded assemblies in the specified scope into coverage results.
+                                    The parameter is a semicolon separated list of file path masks.
+                                    Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
+    /Filters=ARG                 : (Optional) Specifies coverage filters. Syntax: +:module=*;class=*;function=*;
+                                    Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
+    /AttributeFilters=ARG        : (Optional) Specifies attribute filters. Syntax: filter1;filter2;...
+                                    Asterisk wildcard (*) is supported here
+    /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
+    /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
+                                    supported here. Values are separated with semicolon
+    /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
+    /HideAutoProperties          : (Optional) Hides auto properties from report
+
+Global parameters:
+    /LogFile=ARG                 : (Optional) Enables logging and allows specifying a log file name
+
+It is possible to specify a part of the parameters or all of them in the configuration file.
+usage: dotCover analyze-service &lt;configuration file name&gt; [parameters]
+
+Configuration file format is described in the autogenerated sample.
+usage: dotCover help analyze &lt;configuration file name&gt;
             cover        
 cover: Performs coverage analysis of the specified application.
 usage: dotCover cover [parameters]
 
 Valid parameters:
-  /TargetExecutable=ARG        : (Required) File name of the program to analyse
-  /TargetArguments=ARG         : (Optional) Program arguments
-  /TargetWorkingDir=ARG        : (Optional) Program working directory
-  /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
-  /Output=ARG                  : (Required) Path to the resulting coverage snapshot
-  /InheritConsole=ARG          : (Optional) [True|False] Lets the application being analysed to inherit dotCover console. True by default
-                                 Please note that windows of analysed GUI application will not be hidden if the console is inherited
-  /AnalyseTargetArguments=ARG  : (Optional) [True|False] Specifies whether dotCover should analyse target arguments string
-                                 and convert relative paths to absolute there. True by default
-  /Scope                       : (Optional) Allows Including not loaded assemblies in the specified scope into coverage results.
-                                 The parameter is a semicolon separated list of file path masks.
-                                 Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
-  /Filters=ARG                 : (Optional) Specifies coverage filters using the following syntax: +:module=*;type=*;function=*;
-                                 Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
-  /AttributeFilters=ARG        : (Optional) Specifies attribute filters using the following syntax: filter1;filter2;...
-                                 Asterisk wildcard (*) is supported here
-  /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
-  /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
-                                 supported here. Values are separated with semicolon
-  /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
-  /ReturnTargetExitCode        : (Optional) Returns the exit code of the target executable in case coverage analysis succeeded
-  /ProcessFilters=ARG          : (Optional) Specifies process filters. Syntax: +:process1;-:process2
+    /TargetExecutable=ARG        : (Required) File name of the program to analyse
+    /TargetArguments=ARG         : (Optional) Program arguments
+    /TargetWorkingDir=ARG        : (Optional) Program working directory
+    /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
+    /Output=ARG                  : (Required) Path to the resulting coverage snapshot
+    /InheritConsole=ARG          : (Optional) [True|False] Lets the application being analysed to inherit dotCover console. True by default
+                                    Please note that windows of analysed GUI application will not be hidden if the console is inherited
+    /AnalyseTargetArguments=ARG  : (Optional) [True|False] Specifies whether dotCover should analyse target arguments string
+                                    and convert relative paths to absolute there. True by default
+    /Scope                       : (Optional) Allows Including not loaded assemblies in the specified scope into coverage results.
+                                    The parameter is a semicolon separated list of file path masks.
+                                    Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
+    /Filters=ARG                 : (Optional) Specifies coverage filters. Syntax: +:module=*;class=*;function=*;
+                                    Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
+    /AttributeFilters=ARG        : (Optional) Specifies attribute filters. Syntax: filter1;filter2;...
+                                    Asterisk wildcard (*) is supported here
+    /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
+    /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
+                                    supported here. Values are separated with semicolon
+    /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
+    /ReturnTargetExitCode        : (Optional) Returns the exit code of the target executable in case coverage analysis succeeded
+    /ProcessFilters=ARG          : (Optional) Specifies process filters. Syntax: +:process1;-:process2
 
 
 Global parameters:
-  /LogFile=ARG                 : (Optional) Enables logging and specifies log file name
+    /LogFile=ARG                 : (Optional) Enables logging and specifies log file name
 
 It is possible to specify part of the parameters or all of them in the configuration file.
 usage: dotCover cover &lt;configuration file name&gt; [parameters]
@@ -149,7 +229,84 @@ Configuration file format:
     &lt;/AttributeFilters&gt;
     --&gt;
   &lt;/CoverageParams&gt;
-                                            Format of coverage filters specified from the console are compatible with format of filters                defined in JetBrains TeamCity.                        delete         
+                                            Format of coverage filters specified from the console are compatible with format of filters                defined in JetBrains TeamCity.                        cover-everything        
+cover-everything: Performs coverage analysis of all .NET processes started after dotCover.exe.
+usage: dotCover cover-everything [parameters]
+
+Valid parameters:
+    /StartInstance=ARG           : (Required) Starts new dotCover.exe instance in the background and waits until it is initialized.
+                                    ARG is the instance ID. Use this ID to send commands to this dotCover.exe instance.
+                                    Not required if /Instance is specified
+    /Instance=ARG                : (Required) Assigns an instance ID to the current dotCover.exe instance. Use this ID to send commands to
+                                    this dotCover.exe instance. Not required if /StartInstance is specified
+    /CoverImmediately=ARG        : (Optional) [True|False] Specifies whether to start coverage analysis immediately after launch. True by default
+    /StartInstanceTimeout=ARG    : (Optional) Timeout in seconds for the /StartInstance parameter. Default is 20
+    /Output=ARG                  : (Required) Path to the resulting coverage snapshot
+    /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
+    /Scope                       : (Optional) Allows Including not loaded assemblies in the specified scope into coverage results.
+                                    The parameter is a semicolon separated list of file path masks.
+                                    Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
+    /Filters=ARG                 : (Optional) Specifies coverage filters. Syntax: +:module=*;class=*;function=*;
+                                    Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
+    /AttributeFilters=ARG        : (Optional) Specifies attribute filters. Syntax: filter1;filter2;...
+                                    Asterisk wildcard (*) is supported here
+    /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
+    /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
+                                    supported here. Values are separated with semicolon
+    /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
+    /ProcessFilters=ARG          : (Optional) Specifies process filters. Syntax: +:process1;-:process2;...
+                                    Asterisk wildcard (*) is supported here
+
+Global parameters:
+    /LogFile=ARG                 : (Optional) Enables logging and allows specifying a log file name
+
+It is possible to specify a part of the parameters or all of them in the configuration file.
+usage: dotCover cover-everything &lt;configuration file name&gt; [parameters]
+
+Configuration file format is described in the autogenerated sample.
+usage: dotCover help cover-everything &lt;configuration file name&gt;
+            cover-service        
+cover-service: Performs coverage analysis of the specified Windows Service.
+usage: dotCover cover-service [parameters]
+
+Valid parameters:
+    /ServiceName=ARG             : (Required) Name of the service to analyze
+    /ServiceArguments=ARG        : (Optional) Service arguments
+    /StartDependentServices=ARG  : (Optional) [True|False] Specifies whether dependent services must be started. False by default
+    /TempDir=ARG                 : (Optional) Directory for auxiliary files. Set to the system temp by default
+    /Output=ARG                  : (Required) Path to the resulting coverage snapshot
+    /AnalyzeServiceArguments=ARG : (Optional) [True|False] Specifies whether dotCover should analyze arguments string
+                                    and convert relative paths to absolute there. True by default
+    /Scope                       : (Optional) Allows Including not loaded assemblies in the specified scope into coverage results.
+                                    The parameter is a semicolon separated list of file path masks.
+                                    Ant-style patterns are supported here (e.g. ProjectFolder/**/*.dll)
+    /Filters=ARG                 : (Optional) Specifies coverage filters using the following syntax: +:module=*;type=*;function=*;
+                                    Use -:myassembly to exclude an assembly from code coverage. Asterisk wildcard (*) is supported here
+    /AttributeFilters=ARG        : (Optional) Specifies attribute filters using the following syntax: filter1;filter2;...
+                                    Asterisk wildcard (*) is supported here
+    /DisableDefaultFilters       : (Optional) Disables default (automatically added) filters
+    /SymbolSearchPaths=ARG       : (Optional) Specifies additional symbol search paths. Paths to symbol servers (starting with srv* prefix) are
+                                    supported here. Values are separated with semicolon
+    /AllowSymbolServerAccess     : (Optional) Allows dotCover to search for PDB files on a symbol server
+    /UseApi=ARG                  : (Optional) [True|False] Whether to use CoverageProfiler Api. False by default
+    /RemoteApiEndpoint=ARG       : (Optional) Endpoint for RemoteApi feature. Syntax: IPv4Address:Port
+    /StartInstance=ARG           : (Required) Starts new dotCover.exe instance in the background and waits until it is initialized.
+                                    ARG is the instance ID. Use this ID to send commands to this dotCover.exe instance.
+                                    Not required if /Instance is specified
+    /Instance=ARG                : (Required) Assigns an instance ID to the current dotCover.exe instance. Use this ID to send commands to
+                                    this dotCover.exe instance. Not required if /StartInstance is specified
+    /CoverImmediately=ARG        : (Optional) [True|False] Specifies whether to start coverage analysis immediately after launch. True by default
+    /StartInstanceTimeout=ARG    : (Optional) Timeout in seconds for the /StartInstance parameter. Default is 20
+
+Global parameters:
+    /LogFile=ARG                 : (Optional) Enables logging and allows specifying a log file name
+
+It is possible to specify a part of the parameters or all of them in the configuration file.
+usage: dotCover cover-service &lt;configuration file name&gt; [parameters]
+
+Configuration file format is described in the autogenerated sample.
+usage: dotCover help cover-service &lt;configuration file name&gt;
+            delete         
 delete: Delete all files related to the specified snapshots.
 usage: dotCover delete &lt;configuration file&gt;
 
@@ -260,4 +417,18 @@ Global options:
   &lt;Source&gt;&lt;!-- Required. Coverage snapshot file name. --&gt;&lt;/Source&gt;
   &lt;Output&gt;&lt;!-- Required. Zipped snapshot file name. --&gt;&lt;/Output&gt;
 &lt;/ZipParams&gt;
-                     Last modified: 15 January 2018 Console Runner ConfigurationRunning Remote Coverage Analysis from Visual StudioSee AlsoConcepts:Basic ConceptsRunning Coverage Analysis from the Command LineConsole Runner ConfigurationProcedures:Setting up Coverage Analysis on JetBrains TeamCitySetting up Coverage Analysis on a Third-Party CI ServerWorking with Coverage Results
+                     send        
+send: Sends a command to the specified dotCover.exe instance.
+usage: dotCover send [parameters]
+
+Valid parameters:
+    /Instance=ARG                : (Required) ID of the target dotCover.exe instance
+    /Command=ARG                 : (Required) [Cover|Pause|GetSnapshotAndKillChildren] Command to send
+                                    Cover - Start coverage analysis
+                                    Pause - Pause coverage analysis
+                                    GetSnapshotAndKillChildren - Save current coverage data, kill all profiled processes and stop the instance
+    /Timoeut=ARG                 : (Optional) Timeout in seconds for command execution. Default is 10
+
+Global parameters:
+    /LogFile=ARG                 : (Optional) Enables logging and allows specifying a log file name
+            Last modified: 16 April 2018 Console Runner ConfigurationRunning Remote Coverage Analysis from Visual StudioSee AlsoConcepts:Basic ConceptsRunning Coverage Analysis from the Command LineConsole Runner ConfigurationProcedures:Set up Coverage on JetBrains TeamCitySet up Coverage on a Third-Party CI ServerWorking with Coverage Results

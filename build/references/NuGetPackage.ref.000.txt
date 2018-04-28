@@ -6,20 +6,14 @@ Reference Xpath: <null>
 ==================================================
 
 ---
-title: .nuspec File Reference for NuGet | Microsoft Docs
+title: .nuspec File Reference for NuGet
+description: The .nuspec file contains package metadata used when building a package and to provide information to package consumers.
 author: kraigb
 ms.author: kraigb
-manager: ghogen
+manager: douge
 ms.date: 08/29/2017
 ms.topic: reference
-ms.prod: nuget
-ms.technology: null
-description: The .nuspec file contains package metadata used when building a package and to provide information to package consumers.
-keywords: nuspec reference, NuGet package metadata, NuGet package manifest, nuspec schema
-ms.reviewer:
-- anangaur
-- karann-msft
-- unniravindranathan
+ms.reviewer: anangaur
 ---
 
 # .nuspec reference
@@ -97,7 +91,7 @@ These elements may appear within a `<metadata>` element.
 | **owners** | A comma-separated list of the package creators using profile names on nuget.org. This is often the same list as in `authors`, and is ignored when uploading the package to nuget.org. See [Managing package owners on nuget.org](../create-packages/publish-a-package.md#managing-package-owners-on-nugetorg). |
 | **projectUrl** | A URL for the package's home page, often shown in UI displays as well as nuget.org. |
 | **licenseUrl** | A URL for the package's license, often shown in UI displays as well as nuget.org. |
-| **iconUrl** | A URL for a 64x64 image with transparency background to use as the icon for the package in UI display. Be sure this element contains the *direct image URL* and not the URL of a web page containing the image. For example, to use an image from GitHub, use the raw file URL like `https://github.com/<username>/<repository>/raw/<branch>/<logo.png>`. |
+| **iconUrl** | A URL for a 64x64 image with transparency background to use as the icon for the package in UI display. Be sure this element contains the *direct image URL* and not the URL of a web page containing the image. For example, to use an image from GitHub, use the raw file URL like *https://github.com/\<username\>/\<repository\>/raw/\<branch\>/\<logo.png\>*. |
 | **requireLicenseAcceptance** | A Boolean value specifying whether the client must prompt the consumer to accept the package license before installing the package. |
 | **developmentDependency** | *(2.8+)* A Boolean value specifying whether the package is be marked as a development-only-dependency, which prevents the package from being included as a dependency in other packages. |
 | **summary** | A short description of the package for UI display. If omitted, a truncated version of `description` is used. |
@@ -146,9 +140,10 @@ With the exception of `$configuration$`, values in the project are used in prefe
 
 | Token | Value source | Value
 | --- | --- | ---
-| **$id$** | Project file | AssemblyName from the project file |
+| **$id$** | Project file | AssemblyName (title) from the project file |
 | **$version$** | AssemblyInfo | AssemblyInformationalVersion if present, otherwise AssemblyVersion |
 | **$author$** | AssemblyInfo | AssemblyCompany |
+| **$title$** | AssemblyInfo | AssemblyTitle |
 | **$description$** | AssemblyInfo | AssemblyDescription |
 | **$copyright$** | AssemblyInfo | AssemblyCopyright |
 | **$configuration$** | Assembly DLL | Configuration used to build the assembly, defaulting to Debug. Note that to create a package using a Release configuration, you always use `-properties Configuration=Release` on the command line. |
@@ -218,7 +213,7 @@ As an alternative to a single flat list, dependencies can be specified according
 
 Each group has an attribute named `targetFramework` and contains zero or more `<dependency>` elements. Those dependencies are installed together when  the target framework is compatible with the project's framework profile.
 
-The `<group>` element without a `targetFramework` attribute is used as the default or fallback list of dependencies. See [Target frameworks](../schema/target-frameworks.md) for the exact framework identifiers.
+The `<group>` element without a `targetFramework` attribute is used as the default or fallback list of dependencies. See [Target frameworks](../reference/target-frameworks.md) for the exact framework identifiers.
 
 > [!Important]
 > The group format cannot be intermixed with a flat list.
@@ -266,7 +261,7 @@ As an alternative to a single flat list, references can be specified according t
 
 Each group has an attribute named `targetFramework` and contains zero or more `<reference>` elements. Those references are added to a project when the target framework is compatible with the project's framework profile.
 
-The `<group>` element without a `targetFramework` attribute is used as the default or fallback list of references. See [Target frameworks](../schema/target-frameworks.md) for the exact framework identifiers.
+The `<group>` element without a `targetFramework` attribute is used as the default or fallback list of references. See [Target frameworks](../reference/target-frameworks.md) for the exact framework identifiers.
 
 > [!Important]
 > The group format cannot be intermixed with a flat list.
@@ -276,7 +271,7 @@ The following example shows different variations of the `<group>` element:
 ```xml
 <references>
     <group>
-    <reference file="a.dll" />
+        <reference file="a.dll" />
     </group>
 
     <group targetFramework="net45">
@@ -284,7 +279,7 @@ The following example shows different variations of the `<group>` element:
     </group>
 
     <group targetFramework="netcore45">
-    <reference file="bcore45.dll" />
+        <reference file="bcore45.dll" />
     </group>
 </references>
 ```
@@ -300,7 +295,7 @@ The `<frameworkAssemblies>` element contains zero or more `<frameworkAssembly>` 
 | Attribute | Description |
 | --- | --- |
 | **assemblyName** | (Required) The fully qualified assembly name. |
-| **targetFramework** | (Optional) Specifies the target framework to which this reference applies. If omitted, indicates that the reference applies to all frameworks. See [Target frameworks](../schema/target-frameworks.md) for the exact framework identifiers. |
+| **targetFramework** | (Optional) Specifies the target framework to which this reference applies. If omitted, indicates that the reference applies to all frameworks. See [Target frameworks](../reference/target-frameworks.md) for the exact framework identifiers. |
 
 The following example shows a reference to `System.Net` for all target frameworks, and a reference to `System.ServiceModel` for .NET Framework 4.0 only:
 
@@ -340,7 +335,7 @@ Each `<file>` element specifies the following attributes:
 | Attribute | Description |
 | --- | --- |
 | **src** | The location of the file or files to include, subject to exclusions specified by the `exclude` attribute. The path is relative to the `.nuspec` file unless an absolute path is specified. The wildcard character `*` is allowed, and the double wildcard `**` implies a recursive folder search. |
-| **target** | The relative path to the folder within the package where the source files are placed, which must begin with `lib`, `content`, `build`, or `tools`. See [Creating a .nuspec from a convention-based working directory](../Create-Packages/Creating-a-Package.md#from-a-convention-based-working-directory). |
+| **target** | The relative path to the folder within the package where the source files are placed, which must begin with `lib`, `content`, `build`, or `tools`. See [Creating a .nuspec from a convention-based working directory](../create-packages/creating-a-package.md#from-a-convention-based-working-directory). |
 | **exclude** | A semicolon-delimited list of files or file patterns to exclude from the `src` location. The wildcard character `*` is allowed, and the double wildcard `**` implies a recursive folder search. |
 
 ### Examples
@@ -546,7 +541,7 @@ These files are specified with a set of attributes that describe how they should
 | **include** | (Required) The location of the file or files to include, subject to exclusions specified by the `exclude` attribute. The path is relative to the `.nuspec` file unless an absolute path is specified. The wildcard character `*` is allowed, and the double wildcard `**` implies a recursive folder search. |
 | **exclude** | A semicolon-delimited list of files or file patterns to exclude from the `src` location. The wildcard character `*` is allowed, and the double wildcard `**` implies a recursive folder search. |
 | **buildAction** | The build action to assign to the content item for MSBuild, such as `Content`, `None`, `Embedded Resource`, `Compile`, etc. The default is `Compile`. |
-| **copyToOutput** | A Boolean indicating whether to copy content items to the build output folder. The default is false. |
+| **copyToOutput** | A Boolean indicating whether to copy content items to the build (or publish) output folder. The default is false. |
 | **flatten** | A Boolean indicating whether to copy content items to a single folder in the build output (true), or to preserve the folder structure in the package (false). This flag only works when copyToOutput flag is set to true. The default is false. |
 
 When installing a package, NuGet applies the child elements of `<contentFiles>` from top to bottom. If multiple entries match the same file then all entries are applied. The top-most entry overrides the lower entries if there is a conflict for the same attribute.
@@ -558,7 +553,7 @@ The package project should structure content using the following pattern:
     /contentFiles/{codeLanguage}/{TxM}/{any?}
 
 - `codeLanguages` may be `cs`, `vb`, `fs`, `any`, or the lowercase equivalent of a given `$(ProjectLanguage)`
-- `TxM` is any legal target framework moniker that NuGet supports (see [Target frameworks](../schema/target-frameworks.md)).
+- `TxM` is any legal target framework moniker that NuGet supports (see [Target frameworks](../reference/target-frameworks.md)).
 - Any folder structure may be appended to the end of this syntax.
 
 For example:
@@ -607,13 +602,13 @@ Empty folders can use `.` to opt out of providing content for certain combinatio
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-    <id>sample</id>
-    <version>1.2.3</version>
-    <authors>Kim Abercrombie, Franck Halmaert</authors>
-    <description>Sample exists only to show a sample .nuspec file.</description>
-    <language>en-US</language>
-    <projectUrl>http://xunit.codeplex.com/</projectUrl>
-    <licenseUrl>http://xunit.codeplex.com/license</licenseUrl>
+        <id>sample</id>
+        <version>1.2.3</version>
+        <authors>Kim Abercrombie, Franck Halmaert</authors>
+        <description>Sample exists only to show a sample .nuspec file.</description>
+        <language>en-US</language>
+        <projectUrl>http://xunit.codeplex.com/</projectUrl>
+        <licenseUrl>http://xunit.codeplex.com/license</licenseUrl>
     </metadata>
 </package>
 ```
@@ -624,13 +619,13 @@ Empty folders can use `.` to opt out of providing content for certain combinatio
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-    <id>sample</id>
-    <version>1.0.0</version>
-    <authors>Microsoft</authors>
-    <dependencies>
-        <dependency id="another-package" version="3.0.0" />
-        <dependency id="yet-another-package" version="1.0.0" />
-    </dependencies>
+        <id>sample</id>
+        <version>1.0.0</version>
+        <authors>Microsoft</authors>
+        <dependencies>
+            <dependency id="another-package" version="3.0.0" />
+            <dependency id="yet-another-package" version="1.0.0" />
+        </dependencies>
     </metadata>
 </package>
 ```
@@ -641,14 +636,14 @@ Empty folders can use `.` to opt out of providing content for certain combinatio
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-    <id>routedebugger</id>
-    <version>1.0.0</version>
-    <authors>Jay Hamlin</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Route Debugger is a little utility I wrote...</description>
+        <id>routedebugger</id>
+        <version>1.0.0</version>
+        <authors>Jay Hamlin</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Route Debugger is a little utility I wrote...</description>
     </metadata>
     <files>
-    <file src="bin\Debug\*.dll" target="lib" />
+        <file src="bin\Debug\*.dll" target="lib" />
     </files>
 </package>
 ```
@@ -659,20 +654,20 @@ Empty folders can use `.` to opt out of providing content for certain combinatio
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-    <id>PackageWithGacReferences</id>
-    <version>1.0</version>
-    <authors>Author here</authors>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-        A package that has framework assemblyReferences depending
-        on the target framework.
-    </description>
-    <frameworkAssemblies>
-        <frameworkAssembly assemblyName="System.Web" targetFramework="net40" />
-        <frameworkAssembly assemblyName="System.Net" targetFramework="net40-client, net40" />
-        <frameworkAssembly assemblyName="Microsoft.Devices.Sensors" targetFramework="sl4-wp" />
-        <frameworkAssembly assemblyName="System.Json" targetFramework="sl3" />
-    </frameworkAssemblies>
+        <id>PackageWithGacReferences</id>
+        <version>1.0</version>
+        <authors>Author here</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>
+            A package that has framework assemblyReferences depending
+            on the target framework.
+        </description>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Web" targetFramework="net40" />
+            <frameworkAssembly assemblyName="System.Net" targetFramework="net40-client, net40" />
+            <frameworkAssembly assemblyName="Microsoft.Devices.Sensors" targetFramework="sl4-wp" />
+            <frameworkAssembly assemblyName="System.Json" targetFramework="sl3" />
+        </frameworkAssemblies>
     </metadata>
 </package>
 ```
