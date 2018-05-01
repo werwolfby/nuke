@@ -17,7 +17,6 @@ Push a NuGet package.
 13: 
 14: 
 15: 
-16: 
 
 paket push [--help] [--url &lt;url&gt;] [--api-key &lt;key&gt;] [--endpoint &lt;path&gt;] &lt;path&gt;
 
@@ -33,7 +32,6 @@ OPTIONS:
     --silent, -s          suppress console output
     --verbose, -v         print detailed information to the console
     --log-file &lt;path&gt;     print output to a file
-    --from-bootstrapper   call coming from the '--run' feature of the bootstrapper
     --help                display this list of options.
 
 If you add the --verbose flag Paket will run in verbose mode and show detailed information.

@@ -31,10 +31,23 @@
             "help": "Show detailed information at the end of the build log about the configurations that were built and how they were scheduled to nodes."
           },
           {
+            "name": "IgnoredProjectExtensions",
+            "type": "List<string>",
+            "format": "/ignoreprojectextensions:{value}",
+            "separator": ";",
+            "help": "Ignore the specified extensions when determining which project file to build. Use a semicolon or a comma to separate multiple extensions, as the following example shows: <c>/ignoreprojectextensions:.vcproj,.sln</c>"
+          },
+          {
             "name": "MaxCpuCount",
             "type": "int",
             "format": "/maxcpucount:{value}",
             "help": "<p>Specifies the maximum number of concurrent processes to use when building. If you don't include this switch, the default value is 1. If you include this switch without specifying a value, MSBuild will use up to the number of processors in the computer. For more information, see <a href=\"https://msdn.microsoft.com/en-us/library/bb651793.aspx\">Building Multiple Projects in Parallel</a>.</p><p>The following example instructs MSBuild to build using three MSBuild processes, which allows three projects to build at the same time:</p><p><c>msbuild myproject.proj /maxcpucount:3</c></p>"
+          },
+          {
+            "name": "NoAutoResponse",
+            "type": "bool",
+            "format": "/noautoresponse",
+            "help": "Don't include any MSBuild.rsp files automatically."
           },
           {
             "name": "NodeReuse",

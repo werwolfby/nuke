@@ -310,12 +310,6 @@
       "type": "string",
       "format": "--log-file {value}",
       "help": "Print output to a file."
-    },
-    {
-      "name": "FromBootstrapper",
-      "type": "bool",
-      "format": "--from-bootstrapper",
-      "help": "Call coming from the <c>--run</c> feature of the bootstrapper."
     }
   ]
 }

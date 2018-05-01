@@ -33,6 +33,24 @@
             "help": "Causes npm to not install modules listed in devDependencies."
           },
           {
+            "name": "PackageLockOnly",
+            "type": "bool",
+            "format": "--package-lock-only",
+            "help": "Causes npm to only update the package-lock.json, instead of checking node_modules and downloading dependencies.to fetch remote resources even if a local copy exists on disk."
+          },
+          {
+            "name": "NoPackageLock",
+            "type": "bool",
+            "format": "--no-package-lock",
+            "help": "Prevents npm from creating a <c>package-lock.json</c> file. When running with package-lock's disabled npm will not automatically prune your node modules when installing."
+          },
+          {
+            "name": "NoAudit",
+            "type": "bool",
+            "format": "--no-audit",
+            "help": "Causes npm to disable sending of audit reports to the configured registries. See <a href=\"https://docs.npmjs.com/cli/audit\">npm-audit</a> for details on what is sent."
+          },
+          {
             "name": "Force",
             "type": "bool",
             "format": "--force",

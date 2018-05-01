@@ -24,7 +24,6 @@ Download the computed dependency graph.
 20: 
 21: 
 22: 
-23: 
 
 paket restore [--help] [--force] [--only-referenced] [--touch-affected-refs] [--ignore-checks]
               [--fail-on-checks] [--group &lt;name&gt;] [--project &lt;path&gt;] [--references-file &lt;path&gt;]
@@ -47,7 +46,6 @@ OPTIONS:
     --silent, -s          suppress console output
     --verbose, -v         print detailed information to the console
     --log-file &lt;path&gt;     print output to a file
-    --from-bootstrapper   call coming from the '--run' feature of the bootstrapper
     --help                display this list of options.
 
 If you add the --verbose flag Paket will run in verbose mode and show detailed information.

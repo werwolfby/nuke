@@ -217,7 +217,7 @@ Any transforms provided must handle input in the native nunit3 format.
 
         
           
-            Copyright © 2017 NUnit Software
+            Copyright (c) 2018 The NUnit Project - Licensed under CC BY-NC-SA 4.0
 
           
         

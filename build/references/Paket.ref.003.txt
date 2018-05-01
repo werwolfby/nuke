@@ -44,7 +44,6 @@ Create NuGet packages from paket.template files.
 40: 
 41: 
 42: 
-43: 
 
 paket pack [--help] [--build-config &lt;configuration&gt;] [--build-platform &lt;platform&gt;]
            [--version &lt;version&gt;] [--template &lt;path&gt;] [--exclude &lt;package ID&gt;]
@@ -87,7 +86,6 @@ OPTIONS:
     --silent, -s          suppress console output
     --verbose, -v         print detailed information to the console
     --log-file &lt;path&gt;     print output to a file
-    --from-bootstrapper   call coming from the '--run' feature of the bootstrapper
     --help                display this list of options.
 
 If you add the --verbose flag Paket will run in verbose mode and show detailed information.
@@ -183,7 +181,7 @@ paket.template file.
 
 
 It recursively iterates referenced projects and adds their project output to
-the package
+the package (as long as the working directory contains the other projects).
 
 
 When combined with the symbols switch, it
