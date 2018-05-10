@@ -47,7 +47,7 @@ else {
         (New-Object System.Net.WebClient).DownloadFile($DotNetScriptUrl, $DotNetScriptFile)
     }
     
-    ExecSafe { & $DotNetScriptFile -InstallDir $DotNetDirectory -Channel $DotNetChannel -NoPath }
+    ExecSafe { & $DotNetScriptFile -InstallDir $DotNetDirectory -Version $DotNetVersion -NoPath *> $null }
 }
 Write-Output "Microsoft (R) .NET Core SDK version $(& $env:DOTNET_EXE --version)"
 

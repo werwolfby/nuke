@@ -35,6 +35,14 @@
 
   <ItemGroup>
     <None Remove="*.csproj.DotSettings" />
+    <None Include="..\jenkinsfile" />
+    <None Include="..\build.sh" />
+    <None Include="..\build.ps1" />
+    <None Include="..\build.cmd" />
+    <None Include="..\GitVersion.yml" />
+    <None Include="..\NuGet.config" />
+    <None Include="..\.travis.yml" />
+    <None Include="..\appveyor.yml" />
   </ItemGroup>
 
 </Project>
