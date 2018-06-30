@@ -51,7 +51,8 @@ namespace Nuke.Common.Execution
                     .AppendLine()
                     .AppendLine(HelpTextService.GetTargetsText(build));
 
-                ControlFlow.Fail(stringBuilder.ToString());
+                Logger.Error(stringBuilder.ToString());
+                Environment.Exit(exitCode: -1);
             }
 
             return targetDefinition;
@@ -71,10 +72,11 @@ namespace Nuke.Common.Execution
                 var independents = graphAsList.Where(x => !graphAsList.Any(y => y.Dependencies.Contains(x))).ToList();
                 if (EnvironmentInfo.ArgumentSwitch("strict") && independents.Count > 1)
                 {
-                    ControlFlow.Fail(
+                    Logger.Error(
                         new[] { "Incomplete target definition order." }
                             .Concat(independents.Select(x => $"  - {x.Value.Name}"))
                             .JoinNewLine());
+                    Environment.Exit(exitCode: -3);
                 }
 
                 var independent = independents.FirstOrDefault();
@@ -85,10 +87,11 @@ namespace Nuke.Common.Execution
                         .Cycles()
                         .Select(x => string.Join(" -> ", x.Select(y => y.Value.Name)));
 
-                    ControlFlow.Fail(
+                    Logger.Error(
                         new[] { "Circular dependencies between target definitions." }
                             .Concat(independents.Select(x => $"  - {cycles}"))
                             .JoinNewLine());
+                    Environment.Exit(exitCode: -2);
                 }
 
                 graphAsList.Remove(independent);
