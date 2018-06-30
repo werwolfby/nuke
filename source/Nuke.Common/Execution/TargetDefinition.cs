@@ -13,40 +13,13 @@ namespace Nuke.Common.Execution
 {
     internal class TargetDefinition : ITargetDefinition
     {
-        public static TargetDefinition Create(string name, Target factory = null)
-        {
-            return new TargetDefinition(name, factory);
-        }
-
-        private TargetDefinition(string name, Target factory = null)
-        {
-            Name = name;
-            Factory = factory;
-            TargetDependencies = new List<Target>();
-            ShadowTargetDependencies = new List<string>();
-            Actions = new List<Action>();
-            Conditions = new List<Func<bool>>();
-            Requirements = new List<LambdaExpression>();
-            TargetDefinitionDependencies = new List<TargetDefinition>();
-
-            factory?.Invoke(this);
-        }
-
-        internal string Name { get; }
-
-        [CanBeNull]
-        internal Target Factory { get; }
-
         internal string Description { get; set; }
         internal bool IsDefault { get; set; }
-        internal TimeSpan Duration { get; set; }
-        internal ExecutionStatus Status { get; set; }
-        internal List<Func<bool>> Conditions { get; }
-        internal List<LambdaExpression> Requirements { get; }
-        internal List<Target> TargetDependencies { get; }
-        internal List<string> ShadowTargetDependencies { get; }
-        internal List<TargetDefinition> TargetDefinitionDependencies { get; }
-        internal List<Action> Actions { get; }
+        internal List<Func<bool>> Conditions { get; } = new List<Func<bool>>();
+        internal List<LambdaExpression> Requirements { get; } = new List<LambdaExpression>();
+        internal List<Target> TargetDependencies { get; } = new List<Target>();
+        internal List<string> ShadowTargetDependencies { get; } = new List<string>();
+        internal List<Action> Actions { get; } = new List<Action>();
 
         ITargetDefinition ITargetDefinition.Description(string description)
         {
@@ -106,11 +79,6 @@ namespace Nuke.Common.Execution
         {
             Requirements.AddRange(requirement);
             return this;
-        }
-
-        public override string ToString()
-        {
-            return $"Target '{Name}'";
         }
     }
 }

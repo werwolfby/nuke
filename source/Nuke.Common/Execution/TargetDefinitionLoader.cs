@@ -12,12 +12,12 @@ namespace Nuke.Common.Execution
 {
     internal static class TargetDefinitionLoader
     {
-        public static IReadOnlyCollection<TargetDefinition> GetExecutingTargets(NukeBuild build)
+        public static IReadOnlyCollection<ExecutableTarget> GetExecutingTargets(NukeBuild build)
         {
-            ControlFlow.Assert(build.TargetDefinitions.All(x => !x.Name.EqualsOrdinalIgnoreCase(BuildExecutor.DefaultTarget)),
+            ControlFlow.Assert(build.ExecutableTargets.All(x => !x.Name.EqualsOrdinalIgnoreCase(BuildExecutor.DefaultTarget)),
                 $"The name '{BuildExecutor.DefaultTarget}' cannot be used as target name.");
 
-            var invokedTargets = build.InvokedTargets.Select(x => GetDefinition(x, build)).ToList();
+            var invokedTargets = build.InvokedTargets.Select(x => GetExecutableTarget(x, build)).ToList();
             var executingTargets = GetUnfilteredExecutingTargets(build, invokedTargets);
             var skippedTargets = executingTargets
                 .Where(x => !invokedTargets.Contains(x) &&
@@ -26,7 +26,7 @@ namespace Nuke.Common.Execution
                              build.SkippedTargets.Contains(x.Name, StringComparer.OrdinalIgnoreCase))).ToList();
             skippedTargets.ForEach(x => x.Conditions.Add(() => false));
 
-            string[] GetNames(IEnumerable<TargetDefinition> targets)
+            string[] GetNames(IEnumerable<ExecutableTarget> targets)
                 => targets.Select(x => x.Name).ToArray();
 
             ReflectionService.SetValue(build, nameof(NukeBuild.InvokedTargets), GetNames(invokedTargets));
@@ -36,14 +36,14 @@ namespace Nuke.Common.Execution
             return executingTargets;
         }
 
-        private static TargetDefinition GetDefinition(
+        private static ExecutableTarget GetExecutableTarget(
             string targetName,
             NukeBuild build)
         {
             if (targetName.EqualsOrdinalIgnoreCase(BuildExecutor.DefaultTarget))
-                return build.TargetDefinitions.Single(x => x.IsDefault);
+                return build.ExecutableTargets.Single(x => x.IsDefault);
 
-            var targetDefinition = build.TargetDefinitions.SingleOrDefault(x => x.Name.EqualsOrdinalIgnoreCase(targetName));
+            var targetDefinition = build.ExecutableTargets.SingleOrDefault(x => x.Name.EqualsOrdinalIgnoreCase(targetName));
             if (targetDefinition == null)
             {
                 var stringBuilder = new StringBuilder()
@@ -57,14 +57,14 @@ namespace Nuke.Common.Execution
             return targetDefinition;
         }
 
-        private static List<TargetDefinition> GetUnfilteredExecutingTargets(NukeBuild build, IReadOnlyCollection<TargetDefinition> invokedTargets)
+        private static List<ExecutableTarget> GetUnfilteredExecutingTargets(NukeBuild build, IReadOnlyCollection<ExecutableTarget> invokedTargets)
         {
-            var vertexDictionary = build.TargetDefinitions.ToDictionary(x => x, x => new Vertex<TargetDefinition>(x));
+            var vertexDictionary = build.ExecutableTargets.ToDictionary(x => x, x => new Vertex<ExecutableTarget>(x));
             foreach (var pair in vertexDictionary)
-                pair.Value.Dependencies = pair.Key.TargetDefinitionDependencies.Select(x => vertexDictionary[x]).ToList();
+                pair.Value.Dependencies = pair.Key.Dependencies.Select(x => vertexDictionary[x]).ToList();
 
             var graphAsList = vertexDictionary.Values.ToList();
-            var executingTargets = new List<TargetDefinition>();
+            var executingTargets = new List<ExecutableTarget>();
 
             while (graphAsList.Any())
             {
@@ -80,7 +80,7 @@ namespace Nuke.Common.Execution
                 var independent = independents.FirstOrDefault();
                 if (independent == null)
                 {
-                    var scc = new StronglyConnectedComponentFinder<TargetDefinition>();
+                    var scc = new StronglyConnectedComponentFinder<ExecutableTarget>();
                     var cycles = scc.DetectCycle(graphAsList)
                         .Cycles()
                         .Select(x => string.Join(" -> ", x.Select(y => y.Value.Name)));
@@ -94,7 +94,7 @@ namespace Nuke.Common.Execution
                 graphAsList.Remove(independent);
 
                 var targetDefinition = independent.Value;
-                var dependencies = executingTargets.SelectMany(x => x.TargetDefinitionDependencies);
+                var dependencies = executingTargets.SelectMany(x => x.Dependencies);
                 if (!invokedTargets.Contains(targetDefinition) &&
                     !dependencies.Contains(targetDefinition))
                     continue;

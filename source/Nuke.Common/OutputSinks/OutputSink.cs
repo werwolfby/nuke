@@ -21,7 +21,7 @@ namespace Nuke.Common.OutputSinks
         void Error(string text, string details = null);
         void Success(string text);
 
-        void WriteSummary(IReadOnlyCollection<TargetDefinition> executionList);
+        void WriteSummary(IReadOnlyCollection<ExecutableTarget> executableTargets);
     }
 
     internal static class OutputSink
@@ -93,7 +93,7 @@ namespace Nuke.Common.OutputSinks
             Instance.Success(text);
         }
 
-        public static void WriteSummary(IReadOnlyCollection<TargetDefinition> executionList)
+        public static void WriteSummary(IReadOnlyCollection<ExecutableTarget> executableTargets)
         {
             Write(string.Empty);
 
@@ -119,7 +119,7 @@ namespace Nuke.Common.OutputSinks
                 Write(string.Empty);
             }
 
-            Instance.WriteSummary(executionList);
+            Instance.WriteSummary(executableTargets);
         }
     }
 }
