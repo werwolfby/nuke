@@ -15,6 +15,7 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 ###########################################################################
 
 $BuildProjectFile = "$PSScriptRoot\build\.build.csproj"
+$BuildExeFile = "$PSScriptRoot\build\bin\Debug\.build.dll"
 $TempDirectory = "$PSScriptRoot\.tmp"
 
 $DotNetGlobalFile = "$PSScriptRoot\global.json"
@@ -63,4 +64,4 @@ else {
 Write-Output "Microsoft (R) .NET Core SDK version $(& $env:DOTNET_EXE --version)"
 
 ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /p:ReferenceExternal=$RefExt }
-ExecSafe { & $env:DOTNET_EXE run --project $BuildProjectFile -- $BuildArguments }
+ExecSafe { & $env:DOTNET_EXE $BuildExeFile $BuildArguments }
