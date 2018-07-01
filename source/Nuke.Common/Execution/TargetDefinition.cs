@@ -16,8 +16,8 @@ namespace Nuke.Common.Execution
         internal List<Func<bool>> Conditions { get; } = new List<Func<bool>>();
         internal List<LambdaExpression> Requirements { get; } = new List<LambdaExpression>();
         internal DependencyBehavior DependencyBehavior { get; private set; }
-        internal List<Target> TargetDependencies { get; } = new List<Target>();
-        internal List<string> ShadowTargetDependencies { get; } = new List<string>();
+        internal List<Target> FactoryDependencies { get; } = new List<Target>();
+        internal List<string> NameDependencies { get; } = new List<string>();
         internal List<Action> Actions { get; } = new List<Action>();
 
         ITargetDefinition ITargetDefinition.Description(string description)
@@ -44,13 +44,13 @@ namespace Nuke.Common.Execution
 
         public ITargetDefinition DependsOn(params Target[] targets)
         {
-            TargetDependencies.AddRange(targets);
+            FactoryDependencies.AddRange(targets);
             return this;
         }
 
         public ITargetDefinition DependsOn(params string[] shadowTargets)
         {
-            ShadowTargetDependencies.AddRange(shadowTargets);
+            NameDependencies.AddRange(shadowTargets);
             return this;
         }
 
