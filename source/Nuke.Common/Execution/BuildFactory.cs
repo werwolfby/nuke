@@ -10,8 +10,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Nuke.Common.Utilities;
 
-[assembly: InternalsVisibleTo("Nuke.Common.Tests")]
-
 namespace Nuke.Common.Execution
 {
     internal class ExecutableTarget
@@ -41,9 +39,10 @@ namespace Nuke.Common.Execution
         public IReadOnlyList<ExecutableTarget> Dependencies { get; }
         public bool IsDefault { get; }
 
+        public bool Skip { get; set; }
         public ExecutionStatus Status { get; set; }
         public TimeSpan Duration { get; set; }
-}
+    }
 
     internal class BuildFactory
     {

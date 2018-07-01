@@ -7,16 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace Nuke.Common.Execution
 {
     internal class TargetDefinition : ITargetDefinition
     {
         internal string Description { get; set; }
-        internal bool IsDefault { get; set; }
         internal List<Func<bool>> Conditions { get; } = new List<Func<bool>>();
         internal List<LambdaExpression> Requirements { get; } = new List<LambdaExpression>();
+        internal DependencyBehavior DependencyBehavior { get; private set; }
         internal List<Target> TargetDependencies { get; } = new List<Target>();
         internal List<string> ShadowTargetDependencies { get; } = new List<string>();
         internal List<Action> Actions { get; } = new List<Action>();
@@ -78,6 +77,12 @@ namespace Nuke.Common.Execution
         public ITargetDefinition Requires(params Expression<Func<bool>>[] requirement)
         {
             Requirements.AddRange(requirement);
+            return this;
+        }
+
+        public ITargetDefinition WhenSkipped(DependencyBehavior dependencyBehavior)
+        {
+            DependencyBehavior = dependencyBehavior;
             return this;
         }
     }
