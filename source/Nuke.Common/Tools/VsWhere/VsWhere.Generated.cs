@@ -6,6 +6,7 @@
 // Generated from https://github.com/nuke-build/nuke/blob/master/build/specifications/VsWhere.json.
 
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.Tooling;
@@ -99,6 +100,60 @@ namespace Nuke.Common.Tools.VsWhere
               .Add("-property {value}", Property);
             return base.ConfigureArguments(arguments);
         }
+    }
+    #endregion
+    #region VsWhereCatalog
+    /// <summary><p>Used within <see cref="VsWhereTasks"/>.</p></summary>
+    [PublicAPI]
+    [ExcludeFromCodeCoverage]
+    [Serializable]
+    public partial class VsWhereCatalog : ISettingsEntity
+    {
+        public virtual string BuildBranch { get; internal set; }
+        public virtual string BuildVersion { get; internal set; }
+        public virtual string Id { get; internal set; }
+        public virtual string LocalBuild { get; internal set; }
+        public virtual string ManifestName { get; internal set; }
+        public virtual string ManifestType { get; internal set; }
+        public virtual string ProductDisplayVersion { get; internal set; }
+        public virtual string ProductLine { get; internal set; }
+        public virtual string ProductLineVersion { get; internal set; }
+        public virtual string ProductMilestone { get; internal set; }
+        public virtual string ProductMilestoneIsPreRelease { get; internal set; }
+        public virtual string ProductName { get; internal set; }
+        public virtual string ProductPatchVersion { get; internal set; }
+        public virtual string ProductPreReleaseMilestoneSuffix { get; internal set; }
+        public virtual string ProductRelease { get; internal set; }
+        public virtual string ProductSemanticVersion { get; internal set; }
+        public virtual string RequiredEngineVersion { get; internal set; }
+    }
+    #endregion
+    #region VsWhereVersionResult
+    /// <summary><p>Used within <see cref="VsWhereTasks"/>.</p></summary>
+    [PublicAPI]
+    [ExcludeFromCodeCoverage]
+    [Serializable]
+    public partial class VsWhereVersionResult : ISettingsEntity
+    {
+        public virtual string InstanceId { get; internal set; }
+        public virtual DateTime InstallDate { get; internal set; }
+        public virtual string InstallationName { get; internal set; }
+        public virtual string InstallationPath { get; internal set; }
+        public virtual string InstallationVersion { get; internal set; }
+        public virtual string ProductId { get; internal set; }
+        public virtual string ProductPath { get; internal set; }
+        public virtual bool? IsPreRelease { get; internal set; }
+        public virtual string DisplayName { get; internal set; }
+        public virtual string Description { get; internal set; }
+        public virtual string ChannelId { get; internal set; }
+        public virtual string ChannelUri { get; internal set; }
+        public virtual string EnginePath { get; internal set; }
+        public virtual string ReleaseNotes { get; internal set; }
+        public virtual string ThirdPartyNotices { get; internal set; }
+        public virtual DateTime UpdateDate { get; internal set; }
+        public virtual VsWhereCatalog Catalog { get; internal set; }
+        public virtual IReadOnlyDictionary<string, object> Properties => PropertiesInternal.AsReadOnly();
+        internal Dictionary<string, object> PropertiesInternal { get; set; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
     }
     #endregion
     #region VsWhereSettingsExtensions

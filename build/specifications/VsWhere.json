@@ -97,6 +97,160 @@
       }
     }
   ],
+  "dataClasses": [
+    {
+      "name": "VsWhereCatalog",
+      "noExtensionMethods": true,
+      "properties": [
+        {
+          "name": "BuildBranch",
+          "type": "string"
+        },
+        {
+          "name": "BuildVersion",
+          "type": "string"
+        },
+        {
+          "name": "Id",
+          "type": "string"
+        },
+        {
+          "name": "LocalBuild",
+          "type": "string"
+        },
+        {
+          "name": "ManifestName",
+          "type": "string"
+        },
+        {
+          "name": "ManifestType",
+          "type": "string"
+        },
+        {
+          "name": "ProductDisplayVersion",
+          "type": "string"
+        },
+        {
+          "name": "ProductLine",
+          "type": "string"
+        },
+        {
+          "name": "ProductLineVersion",
+          "type": "string"
+        },
+        {
+          "name": "ProductMilestone",
+          "type": "string"
+        },
+        {
+          "name": "ProductMilestoneIsPreRelease",
+          "type": "string"
+        },
+        {
+          "name": "ProductName",
+          "type": "string"
+        },
+        {
+          "name": "ProductPatchVersion",
+          "type": "string"
+        },
+        {
+          "name": "ProductPreReleaseMilestoneSuffix",
+          "type": "string"
+        },
+        {
+          "name": "ProductRelease",
+          "type": "string"
+        },
+        {
+          "name": "ProductSemanticVersion",
+          "type": "string"
+        },
+        {
+          "name": "RequiredEngineVersion",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "VsWhereVersionResult",
+      "noExtensionMethods": true,
+      "properties": [
+        {
+          "name": "InstanceId",
+          "type": "string"
+        },
+        {
+          "name": "InstallDate",
+          "type": "DateTime"
+        },
+        {
+          "name": "InstallationName",
+          "type": "string"
+        },
+        {
+          "name": "InstallationPath",
+          "type": "string"
+        },
+        {
+          "name": "InstallationVersion",
+          "type": "string"
+        },
+        {
+          "name": "ProductId",
+          "type": "string"
+        },
+        {
+          "name": "ProductPath",
+          "type": "string"
+        },
+        {
+          "name": "IsPreRelease",
+          "type": "bool"
+        },
+        {
+          "name": "DisplayName",
+          "type": "string"
+        },
+        {
+          "name": "Description",
+          "type": "string"
+        },
+        {
+          "name": "ChannelId",
+          "type": "string"
+        },
+        {
+          "name": "ChannelUri",
+          "type": "string"
+        },
+        {
+          "name": "EnginePath",
+          "type": "string"
+        },
+        {
+          "name": "ReleaseNotes",
+          "type": "string"
+        },
+        {
+          "name": "ThirdPartyNotices",
+          "type": "string"
+        },
+        {
+          "name": "UpdateDate",
+          "type": "DateTime"
+        },
+        {
+          "name": "Catalog",
+          "type": "VsWhereCatalog"
+        },
+        {
+          "name": "Properties",
+          "type": "Dictionary<string, object>"
+        }
+      ]
+    }
+  ],
   "enumerations": [
     {
       "name": "Format",
